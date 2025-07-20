@@ -9,12 +9,12 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Task\Tests\Unit\Event;
+namespace Clicalmani\Task\Tests\Unit\Event;
 
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
-use Task\Event\TaskEvent;
-use Task\TaskInterface;
+use Clicalmani\Task\Event\TaskEvent;
+use Clicalmani\Task\TaskInterface;
 
 /**
  * Tests for class TaskEvent.

@@ -9,16 +9,16 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Task\Tests\Unit\Storage\ArrayStorage;
+namespace Clicalmani\Task\Tests\Unit\Storage\ArrayStorage;
 
 use Cron\CronExpression;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
-use Task\Storage\ArrayStorage\ArrayTaskRepository;
-use Task\Task;
-use Task\TaskInterface;
+use Clicalmani\Task\Storage\ArrayStorage\ArrayTaskRepository;
+use Clicalmani\Task\Task;
+use Clicalmani\Task\TaskInterface;
 
 /**
  * Tests for ArrayTaskRepository.

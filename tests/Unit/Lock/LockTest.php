@@ -9,14 +9,14 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Task\Tests\Unit\Lock;
+namespace Clicalmani\Task\Tests\Unit\Lock;
 
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
-use Task\Lock\Exception\LockConflictException;
-use Task\Lock\Lock;
-use Task\Lock\LockInterface;
-use Task\Lock\LockStorageInterface;
+use Clicalmani\Task\Lock\Exception\LockConflictException;
+use Clicalmani\Task\Lock\Lock;
+use Clicalmani\Task\Lock\LockInterface;
+use Clicalmani\Task\Lock\LockStorageInterface;
 
 class LockTest extends TestCase
 {

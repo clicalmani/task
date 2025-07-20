@@ -9,19 +9,19 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Task\Tests\Unit\Runner;
+namespace Clicalmani\Task\Tests\Unit\Runner;
 
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Component\Uid\Uuid;
-use Task\Execution\TaskExecutionInterface;
-use Task\Handler\TaskHandlerFactoryInterface;
-use Task\Handler\TaskHandlerInterface;
-use Task\Lock\LockingTaskHandlerInterface;
-use Task\Lock\LockInterface;
-use Task\Runner\PendingExecutionFinder;
-use Task\Storage\TaskExecutionRepositoryInterface;
+use Clicalmani\Task\Execution\TaskExecutionInterface;
+use Clicalmani\Task\Handler\TaskHandlerFactoryInterface;
+use Clicalmani\Task\Handler\TaskHandlerInterface;
+use Clicalmani\Task\Lock\LockingTaskHandlerInterface;
+use Clicalmani\Task\Lock\LockInterface;
+use Clicalmani\Task\Runner\PendingExecutionFinder;
+use Clicalmani\Task\Storage\TaskExecutionRepositoryInterface;
 
 class PendingExecutionFinderTest extends TestCase
 {

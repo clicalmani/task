@@ -9,17 +9,17 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Task\Tests\Unit\Storage\ArrayStorage;
+namespace Clicalmani\Task\Tests\Unit\Storage\ArrayStorage;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
-use Task\Execution\TaskExecution;
-use Task\Execution\TaskExecutionInterface;
-use Task\Storage\ArrayStorage\ArrayTaskExecutionRepository;
-use Task\Task;
-use Task\TaskStatus;
+use Clicalmani\Task\Execution\TaskExecution;
+use Clicalmani\Task\Execution\TaskExecutionInterface;
+use Clicalmani\Task\Storage\ArrayStorage\ArrayTaskExecutionRepository;
+use Clicalmani\Task\Task;
+use Clicalmani\Task\TaskStatus;
 
 /**
  * Tests for ArrayTaskExecutionRepository.

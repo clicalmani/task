@@ -9,12 +9,12 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Task\Tests\Unit\Handler;
+namespace Clicalmani\Task\Tests\Unit\Handler;
 
 use PHPUnit\Framework\TestCase;
-use Task\Handler\TaskHandlerFactory;
-use Task\Handler\TaskHandlerInterface;
-use Task\Handler\TaskHandlerNotExistsException;
+use Clicalmani\Task\Handler\TaskHandlerFactory;
+use Clicalmani\Task\Handler\TaskHandlerInterface;
+use Clicalmani\Task\Handler\TaskHandlerNotExistsException;
 
 /**
  * Tests for TaskHandlerFactory.

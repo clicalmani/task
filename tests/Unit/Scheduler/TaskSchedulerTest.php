@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Task\Tests\Unit\Scheduler;
+namespace Clicalmani\Task\Tests\Unit\Scheduler;
 
 use Cron\CronExpression;
 use PHPUnit\Framework\TestCase;
@@ -17,19 +17,19 @@ use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\LegacyEventDispatcherProxy;
-use Task\Builder\TaskBuilderFactoryInterface;
-use Task\Builder\TaskBuilderInterface;
-use Task\Event\Events;
-use Task\Event\TaskEvent;
-use Task\Event\TaskExecutionEvent;
-use Task\Execution\TaskExecutionInterface;
-use Task\Handler\TaskHandlerInterface;
-use Task\Scheduler\TaskScheduler;
-use Task\Scheduler\TaskSchedulerInterface;
-use Task\Storage\TaskExecutionRepositoryInterface;
-use Task\Storage\TaskRepositoryInterface;
-use Task\TaskInterface;
-use Task\TaskStatus;
+use Clicalmani\Task\Builder\TaskBuilderFactoryInterface;
+use Clicalmani\Task\Builder\TaskBuilderInterface;
+use Clicalmani\Task\Event\Events;
+use Clicalmani\Task\Event\TaskEvent;
+use Clicalmani\Task\Event\TaskExecutionEvent;
+use Clicalmani\Task\Execution\TaskExecutionInterface;
+use Clicalmani\Task\Handler\TaskHandlerInterface;
+use Clicalmani\Task\Scheduler\TaskScheduler;
+use Clicalmani\Task\Scheduler\TaskSchedulerInterface;
+use Clicalmani\Task\Storage\TaskExecutionRepositoryInterface;
+use Clicalmani\Task\Storage\TaskRepositoryInterface;
+use Clicalmani\Task\TaskInterface;
+use Clicalmani\Task\TaskStatus;
 
 /**
  * Tests for TaskScheduler.

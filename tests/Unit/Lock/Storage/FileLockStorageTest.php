@@ -9,14 +9,14 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Task\Tests\Unit\Lock\Storage;
+namespace Clicalmani\Task\Tests\Unit\Lock\Storage;
 
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\vfsStreamFile;
 use PHPUnit\Framework\TestCase;
-use Task\Lock\LockStorageInterface;
-use Task\Lock\Storage\FileLockStorage;
+use Clicalmani\Task\Lock\LockStorageInterface;
+use Clicalmani\Task\Lock\Storage\FileLockStorage;
 
 class FileLockStorageTest extends TestCase
 {

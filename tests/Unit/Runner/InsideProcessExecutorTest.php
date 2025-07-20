@@ -13,13 +13,13 @@ namespace Unit\Runner;
 
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
-use Task\Execution\TaskExecutionInterface;
-use Task\Executor\FailedException;
-use Task\Executor\InsideProcessExecutor;
-use Task\Executor\RetryException;
-use Task\Executor\RetryTaskHandlerInterface;
-use Task\Handler\TaskHandlerFactoryInterface;
-use Task\Handler\TaskHandlerInterface;
+use Clicalmani\Task\Execution\TaskExecutionInterface;
+use Clicalmani\Task\Executor\FailedException;
+use Clicalmani\Task\Executor\InsideProcessExecutor;
+use Clicalmani\Task\Executor\RetryException;
+use Clicalmani\Task\Executor\RetryTaskHandlerInterface;
+use Clicalmani\Task\Handler\TaskHandlerFactoryInterface;
+use Clicalmani\Task\Handler\TaskHandlerInterface;
 
 class InsideProcessExecutorTest extends TestCase
 {

@@ -9,14 +9,14 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Task\Tests\Unit\Builder;
+namespace Clicalmani\Task\Tests\Unit\Builder;
 
 use Cron\CronExpression;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
-use Task\Builder\TaskBuilder;
-use Task\Scheduler\TaskSchedulerInterface;
-use Task\TaskInterface;
+use Clicalmani\Task\Builder\TaskBuilder;
+use Clicalmani\Task\Scheduler\TaskSchedulerInterface;
+use Clicalmani\Task\TaskInterface;
 
 /**
  * Tests for TaskBuilder.

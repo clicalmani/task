@@ -9,13 +9,13 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Task\Tests\Unit\Execution;
+namespace Clicalmani\Task\Tests\Unit\Execution;
 
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
-use Task\Execution\TaskExecution;
-use Task\Task;
-use Task\TaskStatus;
+use Clicalmani\Task\Execution\TaskExecution;
+use Clicalmani\Task\Task;
+use Clicalmani\Task\TaskStatus;
 
 /**
  * Tests for TaskExecution.

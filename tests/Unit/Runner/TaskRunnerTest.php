@@ -9,25 +9,25 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Task\Tests\Unit\Runner;
+namespace Clicalmani\Task\Tests\Unit\Runner;
 
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\LegacyEventDispatcherProxy;
-use Task\Event\Events;
-use Task\Event\TaskExecutionEvent;
-use Task\Execution\TaskExecution;
-use Task\Executor\ExecutorInterface;
-use Task\Executor\RetryException;
-use Task\Handler\TaskHandlerInterface;
-use Task\Runner\ExecutionFinderInterface;
-use Task\Runner\TaskRunner;
-use Task\Runner\TaskRunnerInterface;
-use Task\Storage\TaskExecutionRepositoryInterface;
-use Task\TaskInterface;
-use Task\TaskStatus;
+use Clicalmani\Task\Event\Events;
+use Clicalmani\Task\Event\TaskExecutionEvent;
+use Clicalmani\Task\Execution\TaskExecution;
+use Clicalmani\Task\Executor\ExecutorInterface;
+use Clicalmani\Task\Executor\RetryException;
+use Clicalmani\Task\Handler\TaskHandlerInterface;
+use Clicalmani\Task\Runner\ExecutionFinderInterface;
+use Clicalmani\Task\Runner\TaskRunner;
+use Clicalmani\Task\Runner\TaskRunnerInterface;
+use Clicalmani\Task\Storage\TaskExecutionRepositoryInterface;
+use Clicalmani\Task\TaskInterface;
+use Clicalmani\Task\TaskStatus;
 
 /**
  * Tests for TaskRunner.
