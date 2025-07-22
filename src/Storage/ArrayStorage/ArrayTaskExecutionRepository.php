@@ -12,6 +12,7 @@
 namespace Clicalmani\Task\Storage\ArrayStorage;
 
 use Clicalmani\Foundation\Collection\Collection;
+use Clicalmani\Foundation\Collection\CollectionInterface;
 use Clicalmani\Task\Execution\TaskExecution;
 use Clicalmani\Task\Execution\TaskExecutionInterface;
 use Clicalmani\Task\Storage\TaskExecutionRepositoryInterface;
@@ -24,16 +25,16 @@ use Clicalmani\Task\TaskStatus;
 class ArrayTaskExecutionRepository implements TaskExecutionRepositoryInterface
 {
     /**
-     * @var Collection
+     * @var \Clicalmani\Foundation\Collection\CollectionInterface
      */
     private $taskExecutionCollection;
 
     /**
      * @param Collection $taskExecutions
      */
-    public function __construct(?Collection $taskExecutions = null)
+    public function __construct(?CollectionInterface $taskExecutions = null)
     {
-        $this->taskExecutionCollection = $taskExecutions ?: new Collection();
+        $this->taskExecutionCollection = $taskExecutions ?? new Collection();
     }
 
     /**
@@ -52,7 +53,7 @@ class ArrayTaskExecutionRepository implements TaskExecutionRepositoryInterface
         if ($this->taskExecutionCollection->contains($execution)) {
             return $this;
         }
-
+        
         $this->taskExecutionCollection->add($execution);
 
         return $this;
@@ -149,7 +150,7 @@ class ArrayTaskExecutionRepository implements TaskExecutionRepositoryInterface
     public function findNextScheduled(?\DateTime $dateTime = null, array $skippedExecutions = [])
     {
         $dateTime = $dateTime ?: new \DateTime();
-
+        
         $result = $this->taskExecutionCollection->filter(
             function (TaskExecutionInterface $execution) use ($dateTime, $skippedExecutions) {
                 return TaskStatus::PLANNED === $execution->getStatus()
@@ -157,7 +158,7 @@ class ArrayTaskExecutionRepository implements TaskExecutionRepositoryInterface
                     && !in_array($execution->getUuid(), $skippedExecutions);
             }
         )->first();
-
+        
         return $result ?: null;
     }
 }

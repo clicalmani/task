@@ -12,6 +12,7 @@
 namespace Clicalmani\Task\Storage\ArrayStorage;
 
 use Clicalmani\Foundation\Collection\Collection;
+use Clicalmani\Foundation\Collection\CollectionInterface;
 use Clicalmani\Task\Storage\TaskRepositoryInterface;
 use Clicalmani\Task\Task;
 use Clicalmani\Task\TaskInterface;
@@ -22,14 +23,14 @@ use Clicalmani\Task\TaskInterface;
 class ArrayTaskRepository implements TaskRepositoryInterface
 {
     /**
-     * @var Collection
+     * @var \Clicalmani\Foundation\Collection\CollectionInterface
      */
     private $taskCollection;
 
     /**
-     * @param Collection $tasks
+     * @param \Clicalmani\Foundation\Collection\CollectionInterface $tasks
      */
-    public function __construct(?Collection $tasks = null)
+    public function __construct(?CollectionInterface $tasks = null)
     {
         $this->taskCollection = $tasks ?: new Collection();
     }

@@ -5,31 +5,41 @@ class RecurringMessage
 {
     public function __construct(
         private string $cronExpression = '',
-        private string $handler = '',
-        private mixed $workload = null,
-        private \DateTime|null $from = null
+        private ?object $message = null,
+        private \DateTime|null $startDate = null
     )
-    {
-        
-    }
+    {}
 
-    public static function every(string $cronExpression, string $handler, mixed $workload, \DateTime $from)
+    public static function cron(string $cronExpression, object $message, \DateTime $startDate)
     {
         return new self(
             $cronExpression,
-            $handler,
-            $workload,
-            $from
+            $message,
+            $startDate
         );
     }
 
-    public static function getHandler() : string
+    public static function every(string $cronExpression, object $message, \DateTime $startDate)
     {
-        return self::$handler;
+        return self::cron(
+            $cronExpression,
+            $message,
+            $startDate
+        );
     }
 
-    public static function getWorkload() : string
+    public function getHandler() : string
     {
-        return self::$workload;
+        return "\\App\Scheduler\Handler\\" . substr($this->message::class, strrpos($this->message::class, '\\') + 1) . 'Handler';
+    }
+
+    public function getCronExpression() : string
+    {
+        return $this->cronExpression;
+    }
+
+    public function getStartDate() : \DateTime
+    {
+        return $this->startDate;
     }
 }

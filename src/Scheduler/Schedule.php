@@ -1,26 +1,20 @@
 <?php
 namespace Clicalmani\Task\Scheduler;
 
-use Clicalmani\Task\Builder\TaskBuilderFactory;
-use Clicalmani\Task\Executor\InsideProcessExecutor;
-use Clicalmani\Task\Handler\TaskHandlerFactory;
+use Clicalmani\Foundation\Collection\Collection;
+use Clicalmani\Foundation\Collection\CollectionInterface;
 use Clicalmani\Task\Messenger\RecurringMessage;
-use Clicalmani\Task\Storage\ArrayStorage\ArrayTaskExecutionRepository;
-use Clicalmani\Task\Storage\ArrayStorage\ArrayTaskRepository;
-use Symfony\Component\EventDispatcher\EventDispatcher;
 
 class Schedule
 {
-    private $scheduler;
+    /**
+     * @var \Clicalmani\Foundation\Collection\CollectionInterface
+     */
+    private CollectionInterface $messages;
 
-    public function __construct(private ?EventDispatcher $dispatcher = null)
+    public function __construct()
     {
-        $this->scheduler = new TaskScheduler(
-            new TaskBuilderFactory,
-            new ArrayTaskRepository,
-            new ArrayTaskExecutionRepository,
-            $this->dispatcher
-        );
+        $this->messages = new Collection;
     }
 
     public function with(RecurringMessage $message, RecurringMessage ...$messages)
@@ -32,8 +26,13 @@ class Schedule
         return $this;
     }
 
+    public function getMessages() : CollectionInterface
+    {
+        return $this->messages;
+    }
+
     private function doAdd(RecurringMessage $message) 
     {
-        $this->scheduler->createTask($message->getHandler(), $message->getWorkload());
+        $this->messages->add($message);
     }
 }
