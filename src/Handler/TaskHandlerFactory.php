@@ -26,7 +26,7 @@ class TaskHandlerFactory implements TaskHandlerFactoryInterface
         if (!class_exists($className)) {
             throw new TaskHandlerNotExistsException($className);
         }
-
+        
         return new $className();
     }
 }

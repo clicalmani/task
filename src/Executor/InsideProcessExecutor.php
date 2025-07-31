@@ -40,7 +40,7 @@ class InsideProcessExecutor implements ExecutorInterface
         $handler = $this->handlerFactory->create($execution->getHandlerClass());
 
         try {
-            return $handler->handle($execution->getWorkload());
+            return $handler($execution->getWorkload());
         } catch (FailedException $exception) {
             throw $exception->getPrevious();
         } catch (\Exception $exception) {

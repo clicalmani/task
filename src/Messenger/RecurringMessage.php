@@ -28,6 +28,11 @@ class RecurringMessage
         );
     }
 
+    public function getMessage() : object
+    {
+        return $this->message;
+    }
+
     public function getHandler() : string
     {
         return "\\App\Scheduler\Handler\\" . substr($this->message::class, strrpos($this->message::class, '\\') + 1) . 'Handler';

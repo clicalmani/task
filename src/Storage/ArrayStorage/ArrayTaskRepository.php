@@ -53,7 +53,7 @@ class ArrayTaskRepository implements TaskRepositoryInterface
     /**
      * {@inheritdoc}
      */
-    public function create(string $handlerClass, string|\Serializable|null $workload = null) : TaskInterface
+    public function create(string $handlerClass, ?object $workload = null) : TaskInterface
     {
         return new Task($handlerClass, $workload);
     }

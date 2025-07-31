@@ -154,7 +154,7 @@ class ArrayTaskExecutionRepository implements TaskExecutionRepositoryInterface
         $result = $this->taskExecutionCollection->filter(
             function (TaskExecutionInterface $execution) use ($dateTime, $skippedExecutions) {
                 return TaskStatus::PLANNED === $execution->getStatus()
-                    && $execution->getScheduleTime() < $dateTime
+                    && $execution->getTask()->getInterval()->isDue()
                     && !in_array($execution->getUuid(), $skippedExecutions);
             }
         )->first();

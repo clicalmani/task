@@ -31,11 +31,11 @@ interface TaskRepositoryInterface
      * Create task.
      *
      * @param string $handlerClass
-     * @param string|\Serializable $workload
+     * @param ?object $workload
      *
      * @return \Clicalmani\Task\TaskInterface
      */
-    public function create(string $handlerClass, string|\Serializable|null $workload = null) : TaskInterface;
+    public function create(string $handlerClass, ?object $workload = null) : TaskInterface;
 
     /**
      * Save task.
