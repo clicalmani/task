@@ -1,21 +1,18 @@
 <?php
 
-/*
- * This file is part of php-task library.
+/**
+ * Task interface.
  *
- * (c) php-task
+ * This interface defines the structure for a task, including methods to get task details
+ * such as UUID, handler class, workload, interval, and execution times.
  *
- * This source file is subject to the MIT license that is bundled
- * with this source code in the file LICENSE.
+ * @package Clicalmani\Task
+ * @since 1.0.0
  */
-
 namespace Clicalmani\Task;
 
 use Cron\CronExpression;
 
-/**
- * Interface for task.
- */
 interface TaskInterface
 {
     /**
@@ -23,51 +20,50 @@ interface TaskInterface
      *
      * @return string
      */
-    public function getUuid();
+    public function getUuid() : string;
 
     /**
      * Returns task-name.
      *
      * @return string
      */
-    public function getHandlerClass();
+    public function getHandlerClass() : string;
 
     /**
      * Returns workload.
      *
-     * @return \Serializable|string
+     * @return ?object
      */
-    public function getWorkload();
+    public function getWorkload() : ?object;
 
     /**
      * Returns interval.
      *
      * @return CronExpression
      */
-    public function getInterval();
+    public function getInterval() : CronExpression;
 
     /**
      * Returns first-execution date-time.
      *
      * @return \DateTime
      */
-    public function getFirstExecution();
+    public function getFirstExecution() : \DateTime;
 
     /**
      * Set first-execution.
      *
      * @param \DateTime $firstExecution
-     *
-     * @return $this
+     * @return self
      */
-    public function setFirstExecution(\DateTime $firstExecution);
+    public function setFirstExecution(\DateTime $firstExecution) : self;
 
     /**
      * Returns first-execution date-time.
      *
      * @return \DateTime
      */
-    public function getLastExecution();
+    public function getLastExecution() : \DateTime;
 
     /**
      * Set interval.
@@ -75,8 +71,7 @@ interface TaskInterface
      * @param CronExpression $interval
      * @param \DateTime $firstExecution null means for "now"
      * @param \DateTime $lastExecution null means forever
-     *
-     * @return $this
+     * @return self
      */
-    public function setInterval(CronExpression $interval, \DateTime $firstExecution = null, \DateTime $lastExecution = null);
+    public function setInterval(CronExpression $interval, ?\DateTime $firstExecution = null, ?\DateTime $lastExecution = null) : self;
 }

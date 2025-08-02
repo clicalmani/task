@@ -1,21 +1,17 @@
 <?php
 
-/*
- * This file is part of php-task library.
+/**
+ * Finder for executions.
  *
- * (c) php-task
+ * This interface defines a method to find task executions.
  *
- * This source file is subject to the MIT license that is bundled
- * with this source code in the file LICENSE.
+ * @package Clicalmani\Task\Runner
+ * @since 1.0.0
  */
-
 namespace Clicalmani\Task\Runner;
 
 use Clicalmani\Task\Execution\TaskExecutionInterface;
 
-/**
- * Finder for executions.
- */
 interface ExecutionFinderInterface
 {
     /**
@@ -23,5 +19,5 @@ interface ExecutionFinderInterface
      *
      * @return TaskExecutionInterface[]
      */
-    public function find();
+    public function find() : \Generator;
 }

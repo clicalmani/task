@@ -1,29 +1,26 @@
 <?php
 
-/*
- * This file is part of php-task library.
+/**
+ * Locking task handler interface.
  *
- * (c) php-task
+ * This interface extends the TaskHandlerInterface to provide locking capabilities
+ * for task handlers. Implementations of this interface should define how to lock
+ * resources during task execution.
  *
- * This source file is subject to the MIT license that is bundled
- * with this source code in the file LICENSE.
+ * @package Clicalmani\Task\Lock
+ * @since 1.0.0
  */
-
 namespace Clicalmani\Task\Lock;
 
 use Clicalmani\Task\Handler\TaskHandlerInterface;
 
-/**
- * Handler which implements this interface locks other executions during run.
- */
 interface LockingTaskHandlerInterface extends TaskHandlerInterface
 {
     /**
      * Returns lock-key which defines the locked resources.
      *
-     * @param \Serializable|string $workload
-     *
+     * @param string|\Serializable $workload
      * @return string
      */
-    public function getLockKey($workload);
+    public function getLockKey(string|\Serializable $workload) : string;
 }

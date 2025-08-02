@@ -1,25 +1,21 @@
 <?php
 
-/*
- * This file is part of php-task library.
+/**
+ * Lock already acquired exception.
  *
- * (c) php-task
+ * This exception is thrown when an attempt is made to acquire a lock that is already held.
  *
- * This source file is subject to the MIT license that is bundled
- * with this source code in the file LICENSE.
+ * @package Clicalmani\Task\Lock\Exception
+ * @since 1.0.0
  */
-
 namespace Clicalmani\Task\Lock\Exception;
 
-/**
- * Will be thrown when the lock was already acquired.
- */
 class LockAlreadyAcquiredException extends LockConflictException
 {
     /**
      * @param string $key
      */
-    public function __construct($key)
+    public function __construct(string $key)
     {
         parent::__construct($key, sprintf('Lock for key "%s" is already acquired.', $key));
     }

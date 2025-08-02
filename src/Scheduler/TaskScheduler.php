@@ -1,19 +1,18 @@
 <?php
 
-/*
- * This file is part of php-task library.
+/**
+ * Task scheduler for managing and scheduling tasks.
  *
- * (c) php-task
+ * This class provides methods to create, add, and schedule tasks.
  *
- * This source file is subject to the MIT license that is bundled
- * with this source code in the file LICENSE.
+ * @package Clicalmani\Task\Scheduler
+ * @since 1.0.0
  */
-
 namespace Clicalmani\Task\Scheduler;
 
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\EventDispatcher\LegacyEventDispatcherProxy;
 use Clicalmani\Task\Builder\TaskBuilderFactoryInterface;
+use Clicalmani\Task\Builder\TaskBuilderInterface;
 use Clicalmani\Task\Event\Events;
 use Clicalmani\Task\Event\TaskEvent;
 use Clicalmani\Task\Event\TaskExecutionEvent;
@@ -22,9 +21,6 @@ use Clicalmani\Task\Storage\TaskRepositoryInterface;
 use Clicalmani\Task\TaskInterface;
 use Clicalmani\Task\TaskStatus;
 
-/**
- * Scheduler creates and manages tasks.
- */
 class TaskScheduler implements TaskSchedulerInterface
 {
     /**
@@ -62,7 +58,7 @@ class TaskScheduler implements TaskSchedulerInterface
     /**
      * {@inheritdoc}
      */
-    public function createTask($handlerClass, $workload = null)
+    public function createTask(string $handlerClass, ?object $workload = null) : TaskBuilderInterface
     {
         return $this->factory->createTaskBuilder($this->taskRepository->create($handlerClass, $workload), $this);
     }
@@ -70,7 +66,7 @@ class TaskScheduler implements TaskSchedulerInterface
     /**
      * {@inheritdoc}
      */
-    public function addTask(TaskInterface $task)
+    public function addTask(TaskInterface $task) : TaskSchedulerInterface
     {
         $this->dispatch(Events::TASK_CREATE, new TaskEvent($task));
 
@@ -83,7 +79,7 @@ class TaskScheduler implements TaskSchedulerInterface
     /**
      * {@inheritdoc}
      */
-    public function scheduleTasks()
+    public function scheduleTasks() : void
     {
         $tasks = $this->taskRepository->findEndBeforeNow();
         foreach ($tasks as $task) {

@@ -1,35 +1,25 @@
 <?php
 
-/*
- * This file is part of php-task library.
+/**
+ * Lock storage interface.
  *
- * (c) php-task
+ * This interface defines the contract for lock storage implementations.
+ * It provides methods to save, delete, and check the existence of locks.
  *
- * This source file is subject to the MIT license that is bundled
- * with this source code in the file LICENSE.
+ * @package Clicalmani\Task\Lock
+ * @since 1.0.0
  */
-
 namespace Clicalmani\Task\Lock\Storage;
 
 use Clicalmani\Task\Lock\LockStorageInterface;
 
-/**
- * Save locks in the filesystem.
- */
 class FileLockStorage implements LockStorageInterface
 {
     /**
-     * @var string
-     */
-    private $lockPath;
-
-    /**
      * @param string $lockPath
      */
-    public function __construct($lockPath)
+    public function __construct(private string $lockPath)
     {
-        $this->lockPath = $lockPath;
-
         if (!is_dir($this->lockPath)) {
             mkdir($this->lockPath, 0777, true);
         }
@@ -38,7 +28,7 @@ class FileLockStorage implements LockStorageInterface
     /**
      * {@inheritdoc}
      */
-    public function save($key, $ttl)
+    public function save(string $key, int $ttl) : bool
     {
         $fileName = $this->getFileName($key);
         if (!@file_put_contents($fileName, time() + $ttl)) {
@@ -51,7 +41,7 @@ class FileLockStorage implements LockStorageInterface
     /**
      * {@inheritdoc}
      */
-    public function delete($key)
+    public function delete(string $key) : bool
     {
         $fileName = $this->getFileName($key);
         if (!file_exists($fileName)) {
@@ -68,7 +58,7 @@ class FileLockStorage implements LockStorageInterface
     /**
      * {@inheritdoc}
      */
-    public function exists($key)
+    public function exists(string $key) : bool
     {
         $fileName = $this->getFileName($key);
         if (!file_exists($fileName)) {
@@ -83,7 +73,7 @@ class FileLockStorage implements LockStorageInterface
     /**
      * {@inheritdoc}
      */
-    private function getFileName($key)
+    private function getFileName(string $key) : string
     {
         return $this->lockPath . DIRECTORY_SEPARATOR . preg_replace('/[^a-zA-Z0-9]/', '_', $key) . '.lock';
     }

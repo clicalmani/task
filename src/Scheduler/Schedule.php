@@ -1,4 +1,13 @@
 <?php
+
+/**
+ * Schedule class for managing recurring messages.
+ *
+ * This class allows adding and retrieving recurring messages in a schedule.
+ *
+ * @package Clicalmani\Task\Scheduler
+ * @since 1.0.0
+ */
 namespace Clicalmani\Task\Scheduler;
 
 use Clicalmani\Foundation\Collection\Collection;
@@ -17,7 +26,7 @@ class Schedule
         $this->messages = new Collection;
     }
 
-    public function with(RecurringMessage $message, RecurringMessage ...$messages)
+    public function with(RecurringMessage $message, RecurringMessage ...$messages) : self
     {
         foreach ([$message, ...$messages] as $m) {
             $this->doAdd($m);
@@ -31,7 +40,7 @@ class Schedule
         return $this->messages;
     }
 
-    private function doAdd(RecurringMessage $message) 
+    private function doAdd(RecurringMessage $message) : void
     {
         $this->messages->add($message);
     }

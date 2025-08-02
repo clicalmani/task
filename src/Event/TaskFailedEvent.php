@@ -1,21 +1,18 @@
 <?php
 
-/*
- * This file is part of php-task library.
+/**
+ * TaskFailedEvent class for handling task failure events.
  *
- * (c) php-task
+ * This class is used to encapsulate the details of a task that has failed,
+ * including the task itself and the exception that caused the failure.
  *
- * This source file is subject to the MIT license that is bundled
- * with this source code in the file LICENSE.
+ * @package Clicalmani\Task\Event
+ * @since 1.0.0
  */
-
 namespace Clicalmani\Task\Event;
 
 use Clicalmani\Task\TaskInterface;
 
-/**
- * Task failed Event will be triggered by the Scheduler when the run of given task fails.
- */
 class TaskFailedEvent extends TaskEvent
 {
     /**

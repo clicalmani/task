@@ -1,30 +1,26 @@
 <?php
 
-/*
- * This file is part of php-task library.
+/**
+ * Interface for task-executor.
  *
- * (c) php-task
+ * This interface defines the contract for executing tasks.
+ * Implementations of this interface should handle the execution logic
+ * for tasks, including error handling and retry mechanisms.
  *
- * This source file is subject to the MIT license that is bundled
- * with this source code in the file LICENSE.
+ * @package Clicalmani\Task\Executor
+ * @since 1.0.0
  */
-
 namespace Clicalmani\Task\Executor;
 
 use Clicalmani\Task\Execution\TaskExecutionInterface;
 
-/**
- * Interface for task-executor.
- */
 interface ExecutorInterface
 {
     /**
      * Executes given task.
      *
      * @param TaskExecutionInterface $execution
-     *
      * @return mixed
-     *
      * @throws RetryException indicates that the current run should by retried
      * @throws FailedException indicates that the current run was failed
      */

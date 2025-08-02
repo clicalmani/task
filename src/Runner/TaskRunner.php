@@ -1,14 +1,13 @@
 <?php
 
-/*
- * This file is part of php-task library.
+/**
+ * Task runner for executing scheduled tasks.
  *
- * (c) php-task
+ * This class is responsible for running tasks based on their execution schedule.
  *
- * This source file is subject to the MIT license that is bundled
- * with this source code in the file LICENSE.
+ * @package Clicalmani\Task\Runner
+ * @since 1.0.0
  */
-
 namespace Clicalmani\Task\Runner;
 
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -20,9 +19,6 @@ use Clicalmani\Task\Executor\RetryException;
 use Clicalmani\Task\Storage\TaskExecutionRepositoryInterface;
 use Clicalmani\Task\TaskStatus;
 
-/**
- * Executes scheduled tasks.
- */
 class TaskRunner implements TaskRunnerInterface
 {
     /**
@@ -75,7 +71,6 @@ class TaskRunner implements TaskRunnerInterface
      * Run execution with given handler.
      *
      * @param TaskExecutionInterface $execution
-     *
      * @throws ExitException
      */
     private function run(TaskExecutionInterface $execution)
@@ -100,10 +95,8 @@ class TaskRunner implements TaskRunnerInterface
      * Handle given execution and fire before and after events.
      *
      * @param TaskExecutionInterface $execution
-     *
      * @return \Serializable|string
-     *
-     * @throws \Exception
+     * @throws ExitException
      */
     private function handle(TaskExecutionInterface $execution)
     {
@@ -206,7 +199,7 @@ class TaskRunner implements TaskRunnerInterface
         // invalid (clear in doctrine) after handling an execution.
         $execution = $this->taskExecutionRepository->findByUuid($execution->getUuid());
 
-        if (TaskStatus::PLANNED !== $execution->getStatus()) {
+        if (!$execution->getStatus()->isPlanned()) {
             $execution->setEndTime(new \DateTime());
             $execution->setDuration(microtime(true) - $start);
         }

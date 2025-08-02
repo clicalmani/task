@@ -1,35 +1,57 @@
 <?php
 
-/*
- * This file is part of php-task library.
+/**
+ * Task Status Enum for defining the possible states of a task.
  *
- * (c) php-task
+ * This enum outlines the various statuses a task can have during its lifecycle,
+ * including planned, running, completed, aborted, and failed.
  *
- * This source file is subject to the MIT license that is bundled
- * with this source code in the file LICENSE.
+ * @package Clicalmani\Task
+ * @since 1.0.0
  */
-
 namespace Clicalmani\Task;
 
-/**
- * Container class for task status constants.
- */
-final class TaskStatus
+Enum TaskStatus
 {
-    const PLANNED = 'planned';
+    case PLANNED;
+    case RUNNING;
+    case COMPLETED;
+    case ABORTED;
+    case FAILED;
 
-    const RUNNING = 'running';
-
-    const COMPLETED = 'completed';
-
-    const ABORTED = 'aborted';
-
-    const FAILED = 'failed';
-
-    /**
-     * Private constructor.
-     */
-    private function __construct()
+    public static function isValid(self $status): bool
     {
+        return in_array($status, [
+            self::PLANNED,
+            self::RUNNING,
+            self::COMPLETED,
+            self::ABORTED,
+            self::FAILED,
+        ]);
+    }
+
+    public function isPlanned(): bool
+    {
+        return $this === self::PLANNED;
+    }
+
+    public function isRunning(): bool
+    {
+        return $this === self::RUNNING;
+    }
+
+    public function isCompleted(): bool
+    {
+        return $this === self::COMPLETED;
+    }
+
+    public function isAborted(): bool
+    {
+        return $this === self::ABORTED;
+    }
+
+    public function isFailed(): bool
+    {
+        return $this === self::FAILED;
     }
 }

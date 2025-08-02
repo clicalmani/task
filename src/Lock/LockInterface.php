@@ -1,22 +1,19 @@
 <?php
 
-/*
- * This file is part of php-task library.
+/**
+ * Lock interface.
  *
- * (c) php-task
+ * This interface defines the contract for a lock mechanism that can be used to
+ * acquire, refresh, release, and check the status of locks based on a key.
  *
- * This source file is subject to the MIT license that is bundled
- * with this source code in the file LICENSE.
+ * @package Clicalmani\Task\Lock
+ * @since 1.0.0
  */
-
 namespace Clicalmani\Task\Lock;
 
 use Clicalmani\Task\Lock\Exception\LockAlreadyAcquiredException;
 use Clicalmani\Task\Lock\Exception\LockNotAcquiredException;
 
-/**
- * Interface for locking-mechanism.
- */
 interface LockInterface
 {
     /**
@@ -24,42 +21,35 @@ interface LockInterface
      * If the lock is already acquired an exception will be raised.
      *
      * @param string $key
-     *
      * @return bool
-     *
      * @throws LockAlreadyAcquiredException
      */
-    public function acquire($key);
+    public function acquire(string $key) : bool;
 
     /**
      * Increase the duration of an acquired lock for given key.
      * If the lock is not acquired an exception will be raised.
      *
      * @param string $key
-     *
      * @return bool
-     *
      * @throws LockNotAcquiredException
      */
-    public function refresh($key);
+    public function refresh(string $key) : bool;
 
     /**
      * Release the lock for given key.
      *
      * @param string $key
-     *
      * @return bool
-     *
      * @throws LockNotAcquiredException
      */
-    public function release($key);
+    public function release(string $key) : bool;
 
     /**
      * Returns whether or not the lock for given key is acquired.
      *
      * @param string $key
-     *
      * @return bool
      */
-    public function isAcquired($key);
+    public function isAcquired(string $key) : bool;
 }

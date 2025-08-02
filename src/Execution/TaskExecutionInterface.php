@@ -1,21 +1,20 @@
 <?php
 
-/*
- * This file is part of php-task library.
+/**
+ * Task Execution Interface for defining the structure of task execution.
  *
- * (c) php-task
+ * This interface outlines the methods required for executing a task, including
+ * handling the task's workload, scheduling, and managing execution state.
  *
- * This source file is subject to the MIT license that is bundled
- * with this source code in the file LICENSE.
+ * @package Clicalmani\Task\Execution
+ * @since 1.0.0
  */
-
 namespace Clicalmani\Task\Execution;
 
+use Clicalmani\Queue\Task;
 use Clicalmani\Task\TaskInterface;
+use Clicalmani\Task\TaskStatus;
 
-/**
- * Interface for task-execution.
- */
 interface TaskExecutionInterface
 {
     /**
@@ -23,150 +22,144 @@ interface TaskExecutionInterface
      *
      * @return string
      */
-    public function getUuid();
+    public function getUuid() : string;
 
     /**
      * Returns task.
      *
      * @return TaskInterface
      */
-    public function getTask();
+    public function getTask() : TaskInterface;
 
     /**
      * Returns workload.
      *
-     * @return \Serializable|string
+     * @return object
      */
-    public function getWorkload();
+    public function getWorkload() : object;
 
     /**
      * Returns handler-class.
      *
      * @return string
      */
-    public function getHandlerClass();
+    public function getHandlerClass() : string;
 
     /**
      * Returns schedule-time.
      *
      * @return \DateTime
      */
-    public function getScheduleTime();
+    public function getScheduleTime() : \DateTime;
 
     /**
      * Returns start-time.
      *
      * @return \DateTime
      */
-    public function getStartTime();
+    public function getStartTime() : \DateTime;
 
     /**
      * Returns end-time.
      *
      * @return \DateTime
      */
-    public function getEndTime();
+    public function getEndTime() : \DateTime;
 
     /**
      * Returns duration.
      *
      * @return float
      */
-    public function getDuration();
+    public function getDuration() : float;
 
     /**
      * Returns status.
      *
-     * @return string
+     * @return TaskStatus
      */
-    public function getStatus();
+    public function getStatus() : TaskStatus;
 
     /**
      * Returns result.
      *
      * @return \Serializable|string
      */
-    public function getResult();
+    public function getResult() : \Serializable|string;
 
     /**
      * Returns exception.
      *
      * @return string
      */
-    public function getException();
+    public function getException() : string;
 
     /**
      * Set status.
      *
-     * @param string $status
-     *
-     * @return $this
+     * @param TaskStatus $status
+     * @return self
      */
-    public function setStatus($status);
+    public function setStatus(TaskStatus $status) : self;
 
     /**
      * Set result.
      *
-     * @param string|null|\Serializable $result
-     *
-     * @return $this
+     * @param string|\Serializable|null $result
+     * @return self
      */
-    public function setResult($result);
+    public function setResult(string|\Serializable|null $result) : self;
 
     /**
      * Set exception.
      *
      * @param string $exception
-     *
-     * @return $this
+     * @return self
      */
-    public function setException($exception);
+    public function setException(string $exception) : self;
 
     /**
      * Set start-time.
      *
-     * @param $startTime
-     *
-     * @return $this
+     * @param \DateTime $startTime
+     * @return self
      */
-    public function setStartTime(\DateTime $startTime);
+    public function setStartTime(\DateTime $startTime) : self;
 
     /**
      * Set end-time.
      *
      * @param \DateTime $endTime
-     *
-     * @return $this
+     * @return self
      */
-    public function setEndTime(\DateTime $endTime);
+    public function setEndTime(\DateTime $endTime) : self;
 
     /**
      * Set duration.
      *
      * @param float $duration
-     *
-     * @return $this
+     * @return self
      */
-    public function setDuration($duration);
+    public function setDuration(float $duration) : self;
 
     /**
      * Returns amount of attempts to pass this execution.
      *
      * @return int
      */
-    public function getAttempts();
+    public function getAttempts() : int;
 
     /**
      * Reset execution to retry after failed run.
      *
-     * @return $this
+     * @return self
      */
-    public function reset();
+    public function reset() : self;
 
     /**
      * Increments amount of attempts to pass this execution.
      *
-     * @return $this
+     * @return self
      */
-    public function incrementAttempts();
+    public function incrementAttempts() : self;
 }

@@ -1,22 +1,19 @@
 <?php
 
-/*
- * This file is part of php-task library.
+/**
+ * Task repository interface.
  *
- * (c) php-task
+ * This interface defines methods for managing tasks, including creating, saving, removing,
+ * and finding tasks based on various criteria.
  *
- * This source file is subject to the MIT license that is bundled
- * with this source code in the file LICENSE.
+ * @package Clicalmani\Task\Storage
+ * @since 1.0.0
  */
-
 namespace Clicalmani\Task;
 
 use Cron\CronExpression;
 use Symfony\Component\Uid\Uuid;
 
-/**
- * Task information.
- */
 class Task implements TaskInterface
 {
     /**
@@ -51,10 +48,10 @@ class Task implements TaskInterface
 
     /**
      * @param string $handlerClass
-     * @param string|\Serializable $workload
+     * @param ?object $workload
      * @param string $uuid
      */
-    public function __construct($handlerClass, $workload = null, $uuid = null)
+    public function __construct(string $handlerClass, ?object $workload = null, ?string $uuid = null)
     {
         $this->uuid = $uuid ?: Uuid::v4()->toRfc4122();
         $this->handlerClass = $handlerClass;
@@ -67,7 +64,7 @@ class Task implements TaskInterface
     /**
      * {@inheritdoc}
      */
-    public function getUuid()
+    public function getUuid() : string
     {
         return $this->uuid;
     }
@@ -75,7 +72,7 @@ class Task implements TaskInterface
     /**
      * {@inheritdoc}
      */
-    public function getHandlerClass()
+    public function getHandlerClass() : string
     {
         return $this->handlerClass;
     }
@@ -83,7 +80,7 @@ class Task implements TaskInterface
     /**
      * {@inheritdoc}
      */
-    public function getWorkload()
+    public function getWorkload() : ?object
     {
         return $this->workload;
     }
@@ -91,7 +88,7 @@ class Task implements TaskInterface
     /**
      * {@inheritdoc}
      */
-    public function getInterval()
+    public function getInterval() : CronExpression
     {
         return $this->interval;
     }
@@ -99,7 +96,7 @@ class Task implements TaskInterface
     /**
      * {@inheritdoc}
      */
-    public function getFirstExecution()
+    public function getFirstExecution() : \DateTime
     {
         return $this->firstExecution;
     }
@@ -107,7 +104,7 @@ class Task implements TaskInterface
     /**
      * {@inheritdoc}
      */
-    public function setFirstExecution(\DateTime $firstExecution)
+    public function setFirstExecution(\DateTime $firstExecution) : self
     {
         $this->firstExecution = $firstExecution;
         $this->lastExecution = null;
@@ -118,7 +115,7 @@ class Task implements TaskInterface
     /**
      * {@inheritdoc}
      */
-    public function getLastExecution()
+    public function getLastExecution() : \DateTime
     {
         return $this->lastExecution;
     }
@@ -128,9 +125,9 @@ class Task implements TaskInterface
      */
     public function setInterval(
         CronExpression $interval,
-        \DateTime $firstExecution = null,
-        \DateTime $lastExecution = null
-    ) {
+        ?\DateTime $firstExecution = null,
+        ?\DateTime $lastExecution = null
+    ) : self {
         $this->interval = $interval;
         $this->firstExecution = $firstExecution ?: new \DateTime();
         $this->lastExecution = $lastExecution;

@@ -1,14 +1,14 @@
 <?php
 
-/*
- * This file is part of php-task library.
+/**
+ * Task execution repository interface.
  *
- * (c) php-task
+ * This interface defines methods for managing task executions, including creating, saving, removing,
+ * and finding task executions based on various criteria.
  *
- * This source file is subject to the MIT license that is bundled
- * with this source code in the file LICENSE.
+ * @package Clicalmani\Task\Storage
+ * @since 1.0.0
  */
-
 namespace Clicalmani\Task\Storage\ArrayStorage;
 
 use Clicalmani\Foundation\Collection\Collection;
@@ -19,9 +19,6 @@ use Clicalmani\Task\Storage\TaskExecutionRepositoryInterface;
 use Clicalmani\Task\TaskInterface;
 use Clicalmani\Task\TaskStatus;
 
-/**
- * Storage task-execution in an array.
- */
 class ArrayTaskExecutionRepository implements TaskExecutionRepositoryInterface
 {
     /**
@@ -40,7 +37,7 @@ class ArrayTaskExecutionRepository implements TaskExecutionRepositoryInterface
     /**
      * {@inheritdoc}
      */
-    public function create(TaskInterface $task, \DateTime $scheduleTime)
+    public function create(TaskInterface $task, \DateTime $scheduleTime) : TaskExecutionInterface
     {
         return new TaskExecution($task, $task->getHandlerClass(), $scheduleTime, $task->getWorkload());
     }
@@ -48,7 +45,7 @@ class ArrayTaskExecutionRepository implements TaskExecutionRepositoryInterface
     /**
      * {@inheritdoc}
      */
-    public function save(TaskExecutionInterface $execution)
+    public function save(TaskExecutionInterface $execution) : self
     {
         if ($this->taskExecutionCollection->contains($execution)) {
             return $this;
@@ -62,7 +59,7 @@ class ArrayTaskExecutionRepository implements TaskExecutionRepositoryInterface
     /**
      * {@inheritdoc}
      */
-    public function remove(TaskExecutionInterface $execution)
+    public function remove(TaskExecutionInterface $execution) : self
     {
         $this->taskExecutionCollection->remove($execution);
 
@@ -72,7 +69,7 @@ class ArrayTaskExecutionRepository implements TaskExecutionRepositoryInterface
     /**
      * {@inheritdoc}
      */
-    public function flush()
+    public function flush() : self
     {
         return $this;
     }
@@ -80,7 +77,7 @@ class ArrayTaskExecutionRepository implements TaskExecutionRepositoryInterface
     /**
      * {@inheritdoc}
      */
-    public function findPending(TaskInterface $task)
+    public function findPending(TaskInterface $task) : ?TaskExecutionInterface
     {
         $filtered = $this->taskExecutionCollection->filter(
             function (TaskExecutionInterface $execution) use ($task) {
@@ -90,7 +87,7 @@ class ArrayTaskExecutionRepository implements TaskExecutionRepositoryInterface
         );
 
         if (0 === $filtered->count()) {
-            return;
+            return null;
         }
 
         return $filtered->first();
@@ -99,7 +96,7 @@ class ArrayTaskExecutionRepository implements TaskExecutionRepositoryInterface
     /**
      * {@inheritdoc}
      */
-    public function findByUuid($uuid)
+    public function findByUuid(string $uuid) : ?TaskExecutionInterface
     {
         $filtered = $this->taskExecutionCollection->filter(
             function (TaskExecutionInterface $execution) use ($uuid) {
@@ -108,7 +105,7 @@ class ArrayTaskExecutionRepository implements TaskExecutionRepositoryInterface
         );
 
         if (0 === $filtered->count()) {
-            return;
+            return null;
         }
 
         return $filtered->first();
@@ -117,7 +114,7 @@ class ArrayTaskExecutionRepository implements TaskExecutionRepositoryInterface
     /**
      * {@inheritdoc}
      */
-    public function findByTask(TaskInterface $task)
+    public function findByTask(TaskInterface $task) : array
     {
         return $this->findByTaskUuid($task->getUuid());
     }
@@ -125,7 +122,7 @@ class ArrayTaskExecutionRepository implements TaskExecutionRepositoryInterface
     /**
      * {@inheritdoc}
      */
-    public function findByTaskUuid($taskUuid)
+    public function findByTaskUuid(string $taskUuid) : array
     {
         return array_values(
             $this->taskExecutionCollection->filter(
@@ -139,21 +136,37 @@ class ArrayTaskExecutionRepository implements TaskExecutionRepositoryInterface
     /**
      * {@inheritdoc}
      */
-    public function findAll($page = 1, $pageSize = null)
+    public function findAll(int $page = 1, ?int $pageSize = null) : array
     {
+        if (null === $pageSize) {
+            return $this->taskExecutionCollection->toArray();
+        }
+
+        if ($page < 1) {
+            $page = 1;
+        }
+
+        if ($pageSize < 1) {
+            $pageSize = 10; // Default page size
+        }
+
+        if ($page > ceil($this->taskExecutionCollection->count() / $pageSize)) {
+            return [];
+        }
+
         return array_values($this->taskExecutionCollection->slice(($page - 1) * $pageSize, $pageSize));
     }
 
     /**
      * {@inheritdoc}
      */
-    public function findNextScheduled(?\DateTime $dateTime = null, array $skippedExecutions = [])
+    public function findNextScheduled(?\DateTime $dateTime = null, array $skippedExecutions = []) : ?TaskExecutionInterface
     {
         $dateTime = $dateTime ?: new \DateTime();
         
         $result = $this->taskExecutionCollection->filter(
             function (TaskExecutionInterface $execution) use ($dateTime, $skippedExecutions) {
-                return TaskStatus::PLANNED === $execution->getStatus()
+                return $execution->getStatus()->isPlanned()
                     && $execution->getTask()->getInterval()->isDue()
                     && !in_array($execution->getUuid(), $skippedExecutions);
             }

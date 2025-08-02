@@ -1,19 +1,16 @@
 <?php
 
-/*
- * This file is part of php-task library.
+/**
+ * Lock storage interface.
  *
- * (c) php-task
+ * This interface defines the contract for a lock storage mechanism that can be used
+ * to save, delete, and check the existence of locks based on a key.
  *
- * This source file is subject to the MIT license that is bundled
- * with this source code in the file LICENSE.
+ * @package Clicalmani\Task\Lock
+ * @since 1.0.0
  */
-
 namespace Clicalmani\Task\Lock;
 
-/**
- * Interface for lock storage.
- */
 interface LockStorageInterface
 {
     /**
@@ -22,27 +19,24 @@ interface LockStorageInterface
      *
      * @param string $key
      * @param int $ttl
-     *
      * @return bool
      */
-    public function save($key, $ttl);
+    public function save(string $key, int $ttl) : bool;
 
     /**
-     * Removes the lock.
-     * If the lock not exists it will be ignored.
+     * Deletes the lock.
+     * If the lock does not exist it will return false.
      *
      * @param string $key
-     *
      * @return bool
      */
-    public function delete($key);
+    public function delete(string $key) : bool;
 
     /**
-     * Returns whether or not the lock exists in the storage.
+     * Checks if the lock exists.
      *
      * @param string $key
-     *
      * @return bool
      */
-    public function exists($key);
+    public function exists(string $key) : bool;
 }

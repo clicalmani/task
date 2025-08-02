@@ -1,19 +1,15 @@
 <?php
 
-/*
- * This file is part of php-task library.
- *
- * (c) php-task
- *
- * This source file is subject to the MIT license that is bundled
- * with this source code in the file LICENSE.
- */
-
-namespace Clicalmani\Task\Runner;
-
 /**
  * Internal exception to exit the current run.
+ *
+ * This exception is used to signal that the current run should be exited.
+ *
+ * @package Clicalmani\Task\Runner
+ * @since 1.0.0
  */
+namespace Clicalmani\Task\Runner;
+
 class ExitException extends \Exception
 {
 }

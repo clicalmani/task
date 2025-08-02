@@ -1,19 +1,16 @@
 <?php
 
-/*
- * This file is part of php-task library.
- *
- * (c) php-task
- *
- * This source file is subject to the MIT license that is bundled
- * with this source code in the file LICENSE.
- */
-
-namespace Clicalmani\Task\Lock\Exception;
 
 /**
  * Base exception for lock-conflicts.
+ *
+ * This exception is thrown when there is a conflict in acquiring a lock.
+ *
+ * @package Clicalmani\Task\Lock\Exception
+ * @since 1.0.0
  */
+namespace Clicalmani\Task\Lock\Exception;
+
 abstract class LockConflictException extends \Exception
 {
     /**
@@ -25,10 +22,9 @@ abstract class LockConflictException extends \Exception
      * @param string $key
      * @param string $message
      */
-    public function __construct($key, $message)
+    public function __construct(string $key, string $message)
     {
         parent::__construct($message);
-
         $this->key = $key;
     }
 
@@ -37,7 +33,7 @@ abstract class LockConflictException extends \Exception
      *
      * @return string
      */
-    public function getKey()
+    public function getKey() : string
     {
         return $this->key;
     }

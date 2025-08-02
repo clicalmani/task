@@ -1,19 +1,16 @@
 <?php
 
-/*
- * This file is part of php-task library.
+/**
+ * Interface for task-handler factory.
  *
- * (c) php-task
+ * This interface defines a method to create task handlers based on their class name.
+ * It is used to instantiate task handlers dynamically, ensuring that the class exists before instantiation.
  *
- * This source file is subject to the MIT license that is bundled
- * with this source code in the file LICENSE.
+ * @package Clicalmani\Task\Handler
+ * @since 1.0.0
  */
-
 namespace Clicalmani\Task\Handler;
 
-/**
- * Interface for task-handler registry.
- */
 interface TaskHandlerFactoryInterface
 {
     /**
@@ -25,5 +22,5 @@ interface TaskHandlerFactoryInterface
      *
      * @throws TaskHandlerNotExistsException
      */
-    public function create($className);
+    public function create(string $className) : TaskHandlerInterface;
 }

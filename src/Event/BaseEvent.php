@@ -1,25 +1,19 @@
 <?php
 
+/**
+ * Base event class for task events.
+ *
+ * This class serves as a base for all task-related events in the application.
+ *
+ * @package Clicalmani\Task\Event
+ * @since 1.0.0
+ */
 namespace Clicalmani\Task\Event;
 
-use Symfony\Component\EventDispatcher\GenericEvent as Event;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\EventDispatcher\Event as ContractsEvent;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface as ContractsEventDispatcherInterface;
 
-// Clean up when sf 3.4 support is removed
-if (is_subclass_of(EventDispatcherInterface::class, ContractsEventDispatcherInterface::class)) {
-    /**
-     * @internal
-     */
-    abstract class BaseEvent extends ContractsEvent
-    {
-    }
-} else {
-    /**
-     * @internal
-     */
-    abstract class BaseEvent extends Event
-    {
-    }
-}
+/**
+ * @internal
+ */
+abstract class BaseEvent extends ContractsEvent
+{}

@@ -1,46 +1,40 @@
 <?php
 
-/*
- * This file is part of php-task library.
+/**
+ * Task scheduler interface.
  *
- * (c) php-task
+ * This interface defines methods for creating, adding, and scheduling tasks.
  *
- * This source file is subject to the MIT license that is bundled
- * with this source code in the file LICENSE.
+ * @package Clicalmani\Task\Scheduler
+ * @since 1.0.0
  */
-
 namespace Clicalmani\Task\Scheduler;
 
 use Clicalmani\Task\Builder\TaskBuilderInterface;
 use Clicalmani\Task\TaskInterface;
 
-/**
- * Interface for task-scheduler.
- */
 interface TaskSchedulerInterface
 {
     /**
      * Returns new task-builder.
      *
-     * @param $handlerClass
-     * @param string|\Serializable|mixed[] $workload
-     *
+     * @param string $handlerClass
+     * @param ?object $workload
      * @return TaskBuilderInterface
      */
-    public function createTask($handlerClass, $workload = null);
+    public function createTask(string $handlerClass, ?object $workload = null) : TaskBuilderInterface;
 
     /**
      * Schedule task.
      *
      * @param TaskInterface $task
-     *
-     * @return $this
+     * @return self
      */
-    public function addTask(TaskInterface $task);
+    public function addTask(TaskInterface $task) : self;
 
     /**
      * Schedules task-executions.
      */
-    public function scheduleTasks();
+    public function scheduleTasks() : void;
 }
 

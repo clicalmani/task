@@ -1,19 +1,16 @@
 <?php
 
-/*
- * This file is part of php-task library.
- *
- * (c) php-task
- *
- * This source file is subject to the MIT license that is bundled
- * with this source code in the file LICENSE.
- */
-
-namespace Clicalmani\Task\Executor;
-
 /**
  * Internal exception to indicate a retry for given exception.
+ * 
+ * This exception is thrown when a task execution fails and the handler supports retrying.
+ * It contains the maximum number of attempts allowed for the retry.
+ * 
+ * @package Clicalmani\Task\Executor
+ * @since 1.0.0
  */
+namespace Clicalmani\Task\Executor;
+
 class RetryException extends \Exception
 {
     /**

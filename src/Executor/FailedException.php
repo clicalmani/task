@@ -1,19 +1,17 @@
 <?php
 
-/*
- * This file is part of php-task library.
- *
- * (c) php-task
- *
- * This source file is subject to the MIT license that is bundled
- * with this source code in the file LICENSE.
- */
-
-namespace Clicalmani\Task\Executor;
-
 /**
  * Will be thrown by RetryTaskHandler to indicate that the current run was failed and should not be retried.
+ *
+ * This exception is used to signal that the task execution has failed and no further attempts should be made.
+ * It is typically thrown when the task cannot be completed due to an unrecoverable error.
+ * Implementations of the ExecutorInterface should catch this exception to handle task failures appropriately.
+ *
+ * @package Clicalmani\Task\Executor
+ * @since 1.0.0
  */
+namespace Clicalmani\Task\Executor;
+
 class FailedException extends \Exception
 {
     public function __construct(\Exception $previous)

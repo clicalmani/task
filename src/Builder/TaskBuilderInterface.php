@@ -1,21 +1,19 @@
 <?php
 
-/*
- * This file is part of php-task library.
+/**
+ * Task builder interface for creating and scheduling tasks.
  *
- * (c) php-task
+ * This interface defines methods to build tasks with various scheduling options.
+ * It provides methods to create task builders with different intervals such as hourly, daily, weekly,
+ * monthly, and yearly, as well as custom cron expressions.
  *
- * This source file is subject to the MIT license that is bundled
- * with this source code in the file LICENSE.
+ * @package Clicalmani\Task\Builder
+ * @since 1.0.0
  */
-
 namespace Clicalmani\Task\Builder;
 
 use Clicalmani\Task\TaskInterface;
 
-/**
- * Interface for task builder.
- */
 interface TaskBuilderInterface
 {
     /**
@@ -24,9 +22,9 @@ interface TaskBuilderInterface
      * @param \DateTime $firstExecution
      * @param \DateTime $lastExecution
      *
-     * @return $this
+     * @return self
      */
-    public function hourly(\DateTime $firstExecution = null, \DateTime $lastExecution = null);
+    public function hourly(?\DateTime $firstExecution = null, ?\DateTime $lastExecution = null) : self;
 
     /**
      * Use daily interval.
@@ -34,9 +32,9 @@ interface TaskBuilderInterface
      * @param \DateTime $start
      * @param \DateTime $end
      *
-     * @return $this
+     * @return self
      */
-    public function daily(\DateTime $start = null, \DateTime $end = null);
+    public function daily(?\DateTime $start = null, ?\DateTime $end = null) : self;
 
     /**
      * Use weekly interval.
@@ -44,9 +42,9 @@ interface TaskBuilderInterface
      * @param \DateTime $start
      * @param \DateTime $end
      *
-     * @return $this
+     * @return self
      */
-    public function weekly(\DateTime $start = null, \DateTime $end = null);
+    public function weekly(?\DateTime $start = null, ?\DateTime $end = null) : self;
 
     /**
      * Use monthly interval.
@@ -54,9 +52,9 @@ interface TaskBuilderInterface
      * @param \DateTime $start
      * @param \DateTime $end
      *
-     * @return $this
+     * @return self
      */
-    public function monthly(\DateTime $start = null, \DateTime $end = null);
+    public function monthly(?\DateTime $start = null, ?\DateTime $end = null) : self;
 
     /**
      * Use yearly interval.
@@ -64,9 +62,9 @@ interface TaskBuilderInterface
      * @param \DateTime $start
      * @param \DateTime $end
      *
-     * @return $this
+     * @return self
      */
-    public function yearly(\DateTime $start = null, \DateTime $end = null);
+    public function yearly(?\DateTime $start = null, ?\DateTime $end = null) : self;
 
     /**
      * Use given cron-interval.
@@ -75,23 +73,23 @@ interface TaskBuilderInterface
      * @param \DateTime $start
      * @param \DateTime $end
      *
-     * @return $this
+     * @return self
      */
-    public function cron($cronExpression, \DateTime $start = null, \DateTime $end = null);
+    public function cron(string $cronExpression, ?\DateTime $start = null, ?\DateTime $end = null) : self;
 
     /**
      * Set execution-date.
      *
      * @param \DateTime $executionDate
      *
-     * @return $this
+     * @return self
      */
-    public function executeAt(\DateTime $executionDate);
+    public function executeAt(\DateTime $executionDate) : self;
 
     /**
      * Schedules built task and returns it.
      *
      * @return TaskInterface
      */
-    public function schedule();
+    public function schedule() : TaskInterface;
 }

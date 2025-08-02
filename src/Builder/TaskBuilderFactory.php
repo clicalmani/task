@@ -1,22 +1,18 @@
 <?php
 
-/*
- * This file is part of php-task library.
+/**
+ * Task builder factory.
  *
- * (c) php-task
+ * This factory creates instances of TaskBuilder, which is used to build tasks with various scheduling options.
  *
- * This source file is subject to the MIT license that is bundled
- * with this source code in the file LICENSE.
+ * @package Clicalmani\Task\Builder
+ * @since 1.0.0
  */
-
 namespace Clicalmani\Task\Builder;
 
 use Clicalmani\Task\Scheduler\TaskSchedulerInterface;
 use Clicalmani\Task\TaskInterface;
 
-/**
- * Factory for task.
- */
 class TaskBuilderFactory implements TaskBuilderFactoryInterface
 {
     /**

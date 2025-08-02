@@ -1,14 +1,13 @@
 <?php
 
-/*
- * This file is part of php-task library.
+/**
+ * Task runner interface.
  *
- * (c) php-task
+ * This interface defines the contract for running scheduled tasks.
  *
- * This source file is subject to the MIT license that is bundled
- * with this source code in the file LICENSE.
+ * @package Clicalmani\Task\Runner
+ * @since 1.0.0
  */
-
 namespace Clicalmani\Task\Runner;
 
 /**

@@ -1,14 +1,13 @@
 <?php
 
-/*
- * This file is part of php-task library.
+/**
+ * Find pending executions.
  *
- * (c) php-task
+ * This class is responsible for finding task executions that are pending and can be run.
  *
- * This source file is subject to the MIT license that is bundled
- * with this source code in the file LICENSE.
+ * @package Clicalmani\Task\Runner
+ * @since 1.0.0
  */
-
 namespace Clicalmani\Task\Runner;
 
 use Psr\Log\LoggerInterface;
@@ -18,9 +17,6 @@ use Clicalmani\Task\Lock\LockingTaskHandlerInterface;
 use Clicalmani\Task\Lock\LockInterface;
 use Clicalmani\Task\Storage\TaskExecutionRepositoryInterface;
 
-/**
- * Find pending executions.
- */
 class PendingExecutionFinder implements ExecutionFinderInterface
 {
     /**
@@ -53,7 +49,7 @@ class PendingExecutionFinder implements ExecutionFinderInterface
         TaskExecutionRepositoryInterface $taskExecutionRepository,
         TaskHandlerFactoryInterface $taskHandlerFactory,
         LockInterface $lock,
-        LoggerInterface $logger = null
+        ?LoggerInterface $logger = null
     ) {
         $this->taskExecutionRepository = $taskExecutionRepository;
         $this->taskHandlerFactory = $taskHandlerFactory;
@@ -64,7 +60,7 @@ class PendingExecutionFinder implements ExecutionFinderInterface
     /**
      * {@inheritdoc}
      */
-    public function find()
+    public function find() : \Generator
     {
         $runTime = new \DateTime();
 

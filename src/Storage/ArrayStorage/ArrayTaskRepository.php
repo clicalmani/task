@@ -1,14 +1,14 @@
 <?php
 
-/*
- * This file is part of php-task library.
+/**
+ * Task execution repository for managing task executions in an array.
  *
- * (c) php-task
+ * This class implements the TaskExecutionRepositoryInterface and provides methods to create, save,
+ * remove, and find task executions based on various criteria.
  *
- * This source file is subject to the MIT license that is bundled
- * with this source code in the file LICENSE.
+ * @package Clicalmani\Task\Storage\ArrayStorage
+ * @since 1.0.0
  */
-
 namespace Clicalmani\Task\Storage\ArrayStorage;
 
 use Clicalmani\Foundation\Collection\Collection;
@@ -17,9 +17,6 @@ use Clicalmani\Task\Storage\TaskRepositoryInterface;
 use Clicalmani\Task\Task;
 use Clicalmani\Task\TaskInterface;
 
-/**
- * Storage task in an array.
- */
 class ArrayTaskRepository implements TaskRepositoryInterface
 {
     /**
@@ -38,7 +35,7 @@ class ArrayTaskRepository implements TaskRepositoryInterface
     /**
      * {@inheritdoc}
      */
-    public function findByUuid($uuid) : ?TaskInterface
+    public function findByUuid(string $uuid) : ?TaskInterface
     {
         /** @var TaskInterface $task */
         foreach ($this->taskCollection as $task) {

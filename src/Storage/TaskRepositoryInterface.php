@@ -1,46 +1,41 @@
 <?php
 
-/*
- * This file is part of php-task library.
+/**
+ * Task repository interface.
  *
- * (c) php-task
+ * This interface defines methods for managing tasks, including creating, saving, removing,
+ * and finding tasks based on various criteria.
  *
- * This source file is subject to the MIT license that is bundled
- * with this source code in the file LICENSE.
+ * @package Clicalmani\Task\Storage
+ * @since 1.0.0
  */
-
 namespace Clicalmani\Task\Storage;
 
 use Clicalmani\Task\TaskInterface;
 
-/**
- * Interface for task repository.
- */
 interface TaskRepositoryInterface
 {
     /**
      * Find task for given uuid.
      *
      * @param string $uuid
-     *
-     * @return ?\Clicalmani\Task\TaskInterface
+     * @return ?TaskInterface
      */
-    public function findByUuid($uuid) : ?TaskInterface;
+    public function findByUuid(string $uuid) : ?TaskInterface;
 
     /**
      * Create task.
      *
      * @param string $handlerClass
      * @param ?object $workload
-     *
-     * @return \Clicalmani\Task\TaskInterface
+     * @return TaskInterface
      */
     public function create(string $handlerClass, ?object $workload = null) : TaskInterface;
 
     /**
      * Save task.
      *
-     * @param \Clicalmani\Task\TaskInterface $task
+     * @param TaskInterface $task
      * @return self
      */
     public function save(TaskInterface $task) : self;
@@ -48,7 +43,7 @@ interface TaskRepositoryInterface
     /**
      * Remove task.
      *
-     * @param \Clicalmani\Task\TaskInterface $task
+     * @param TaskInterface $task
      * @return self
      */
     public function remove(TaskInterface $task) : self;
@@ -58,15 +53,14 @@ interface TaskRepositoryInterface
      *
      * @param int $page
      * @param int $pageSize
-     *
-     * @return \Clicalmani\Task\TaskInterface[]
+     * @return TaskInterface[]
      */
     public function findAll(int $page = 1, ?int $pageSize = null) : iterable;
 
     /**
      * Used to find tasks which has end-date before now.
      *
-     * @return \Clicalmani\Task\TaskInterface[]
+     * @return TaskInterface[]
      */
     public function findEndBeforeNow() : iterable;
 }

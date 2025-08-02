@@ -1,22 +1,25 @@
 <?php
 
-/*
- * This file is part of php-task library.
+/**
+ * Task Execution Events are triggered by the Scheduler during scheduling and run process.
  *
- * (c) php-task
+ * This class represents events related to task execution, such as task execution start, completion, and failure.
+ * It extends the TaskEvent class and provides a way to encapsulate task execution-related data within events.
+ * The TaskExecutionEvent class is used to pass task execution information to event listeners, allowing
+ * them to react to changes in task execution state or to perform actions based on task execution events
+ * such as logging, notifications, or further processing.
  *
- * This source file is subject to the MIT license that is bundled
- * with this source code in the file LICENSE.
+ * @package Clicalmani\Task\Event
+ * @version 1.0.0
+ * @since 1.0.0
+ * @author Clicalmani
+ * @license https://opensource.org/licenses/MIT MIT License
  */
-
 namespace Clicalmani\Task\Event;
 
 use Clicalmani\Task\Execution\TaskExecutionInterface;
 use Clicalmani\Task\TaskInterface;
 
-/**
- * Task Execution Events are triggered by the Scheduler during scheduling and run process.
- */
 class TaskExecutionEvent extends TaskEvent
 {
     /**
@@ -36,7 +39,7 @@ class TaskExecutionEvent extends TaskEvent
     }
 
     /**
-     * Returns task-execution.
+     * Returns the task execution associated with the event.
      *
      * @return TaskExecutionInterface
      */

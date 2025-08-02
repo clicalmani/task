@@ -1,22 +1,22 @@
 <?php
 
-/*
- * This file is part of php-task library.
+/**
+ * Lock management interface.
  *
- * (c) php-task
- *
- * This source file is subject to the MIT license that is bundled
- * with this source code in the file LICENSE.
+ * This interface defines methods for acquiring, releasing, and checking locks.
+ * It is used to manage locks in a distributed system to
+ * ensure that only one process can access a resource at a time.
+ * Implementations of this interface should provide the logic for handling locks,
+ * including storage and retrieval of lock states.
+ * 
+ * @package Clicalmani\Task\Lock
+ * @since 1.0.0
  */
-
 namespace Clicalmani\Task\Lock;
 
 use Clicalmani\Task\Lock\Exception\LockAlreadyAcquiredException;
 use Clicalmani\Task\Lock\Exception\LockNotAcquiredException;
 
-/**
- * Manages locks.
- */
 class Lock implements LockInterface
 {
     /**
@@ -42,7 +42,7 @@ class Lock implements LockInterface
     /**
      * {@inheritdoc}
      */
-    public function acquire($key)
+    public function acquire(string $key) : bool
     {
         $this->assertNotAcquired($key);
 
@@ -52,7 +52,7 @@ class Lock implements LockInterface
     /**
      * {@inheritdoc}
      */
-    public function refresh($key)
+    public function refresh(string $key) : bool
     {
         $this->assertAcquired($key);
 
@@ -62,7 +62,7 @@ class Lock implements LockInterface
     /**
      * {@inheritdoc}
      */
-    public function release($key)
+    public function release(string $key) : bool
     {
         $this->assertAcquired($key);
 
@@ -72,7 +72,7 @@ class Lock implements LockInterface
     /**
      * {@inheritdoc}
      */
-    public function isAcquired($key)
+    public function isAcquired(string $key) : bool
     {
         return $this->storage->exists($key);
     }
@@ -81,10 +81,9 @@ class Lock implements LockInterface
      * Throw exception if the given key is not acquired.
      *
      * @param string $key
-     *
      * @throws LockNotAcquiredException
      */
-    private function assertAcquired($key)
+    private function assertAcquired(string $key)
     {
         if ($this->isAcquired($key)) {
             return;
@@ -97,10 +96,9 @@ class Lock implements LockInterface
      * Throw exception if the given key is acquired.
      *
      * @param string $key
-     *
      * @throws LockAlreadyAcquiredException
      */
-    private function assertNotAcquired($key)
+    private function assertNotAcquired(string $key)
     {
         if (!$this->isAcquired($key)) {
             return;

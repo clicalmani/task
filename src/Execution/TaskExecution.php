@@ -1,23 +1,20 @@
 <?php
 
-/*
- * This file is part of php-task library.
+/**
+ * Task Execution Interface for defining the structure of task execution.
  *
- * (c) php-task
+ * This interface outlines the methods required for executing a task, including
+ * handling the task's workload, scheduling, and managing execution state.
  *
- * This source file is subject to the MIT license that is bundled
- * with this source code in the file LICENSE.
+ * @package Clicalmani\Task\Execution
+ * @since 1.0.0
  */
-
 namespace Clicalmani\Task\Execution;
 
 use Symfony\Component\Uid\Uuid;
 use Clicalmani\Task\TaskInterface;
 use Clicalmani\Task\TaskStatus;
 
-/**
- * Single task-execution.
- */
 class TaskExecution implements TaskExecutionInterface
 {
     /**
@@ -61,7 +58,7 @@ class TaskExecution implements TaskExecutionInterface
     protected $duration;
 
     /**
-     * @var string
+     * @var TaskStatus
      */
     protected $status;
 
@@ -104,7 +101,7 @@ class TaskExecution implements TaskExecutionInterface
     /**
      * {@inheritdoc}
      */
-    public function getUuid()
+    public function getUuid() : string
     {
         return $this->uuid;
     }
@@ -112,7 +109,7 @@ class TaskExecution implements TaskExecutionInterface
     /**
      * {@inheritdoc}
      */
-    public function getTask()
+    public function getTask() : TaskInterface
     {
         return $this->task;
     }
@@ -120,7 +117,7 @@ class TaskExecution implements TaskExecutionInterface
     /**
      * {@inheritdoc}
      */
-    public function getWorkload()
+    public function getWorkload() : object
     {
         return $this->workload;
     }
@@ -128,7 +125,7 @@ class TaskExecution implements TaskExecutionInterface
     /**
      * {@inheritdoc}
      */
-    public function getHandlerClass()
+    public function getHandlerClass() : string
     {
         return $this->handlerClass;
     }
@@ -136,7 +133,7 @@ class TaskExecution implements TaskExecutionInterface
     /**
      * {@inheritdoc}
      */
-    public function getScheduleTime()
+    public function getScheduleTime() : \DateTime
     {
         return $this->scheduleTime;
     }
@@ -144,29 +141,41 @@ class TaskExecution implements TaskExecutionInterface
     /**
      * {@inheritdoc}
      */
-    public function setStartTime(\DateTime $startTime)
+    public function setStartTime(\DateTime $startTime) : self
     {
         $this->startTime = $startTime;
-
         return $this;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function setEndTime(\DateTime $endTime)
+    public function setEndTime(\DateTime $endTime) : self
     {
+        if ($endTime < $this->startTime) {
+            throw new \InvalidArgumentException('End time cannot be earlier than start time.');
+        }
+
         $this->endTime = $endTime;
-
+        $this->duration = $this->startTime ? $this->endTime->getTimestamp() - $this->startTime->getTimestamp() : 0;
         return $this;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function setDuration($duration)
+    public function setDuration($duration) : self
     {
-        $this->duration = $duration;
+        if (!is_numeric($duration) || $duration < 0) {
+            throw new \InvalidArgumentException('Duration must be a non-negative number.');
+        }
+        
+        // If start and end times are set, recalculate duration
+        if ($this->startTime && $this->endTime) {
+            $this->duration = $this->endTime->getTimestamp() - $this->startTime->getTimestamp();
+        } else {
+            $this->duration = $duration;
+        }
 
         return $this;
     }
@@ -174,7 +183,7 @@ class TaskExecution implements TaskExecutionInterface
     /**
      * {@inheritdoc}
      */
-    public function getStartTime()
+    public function getStartTime() : \DateTime
     {
         return $this->startTime;
     }
@@ -182,7 +191,7 @@ class TaskExecution implements TaskExecutionInterface
     /**
      * {@inheritdoc}
      */
-    public function getEndTime()
+    public function getEndTime() : \DateTime
     {
         return $this->endTime;
     }
@@ -190,7 +199,7 @@ class TaskExecution implements TaskExecutionInterface
     /**
      * {@inheritdoc}
      */
-    public function getDuration()
+    public function getDuration() : float
     {
         return $this->duration;
     }
@@ -198,7 +207,7 @@ class TaskExecution implements TaskExecutionInterface
     /**
      * {@inheritdoc}
      */
-    public function getStatus()
+    public function getStatus() : TaskStatus
     {
         return $this->status;
     }
@@ -206,7 +215,7 @@ class TaskExecution implements TaskExecutionInterface
     /**
      * {@inheritdoc}
      */
-    public function getResult()
+    public function getResult() : \Serializable|string
     {
         return $this->result;
     }
@@ -214,7 +223,7 @@ class TaskExecution implements TaskExecutionInterface
     /**
      * {@inheritdoc}
      */
-    public function getException()
+    public function getException()  : string
     {
         return $this->exception;
     }
@@ -222,8 +231,12 @@ class TaskExecution implements TaskExecutionInterface
     /**
      * {@inheritdoc}
      */
-    public function setStatus($status)
+    public function setStatus(TaskStatus $status) : self
     {
+        if (!$status->isValid($status)) {
+            throw new \InvalidArgumentException('Invalid task status provided.');
+        }
+        
         $this->status = $status;
 
         return $this;
@@ -232,8 +245,19 @@ class TaskExecution implements TaskExecutionInterface
     /**
      * {@inheritdoc}
      */
-    public function setResult($result)
+    public function setResult(string|\Serializable|null $result) : self
     {
+        if (!is_string($result) && !($result instanceof \Serializable)) {
+            throw new \InvalidArgumentException('Result must be a string or an instance of Serializable.');
+        }
+        
+        // If result is null, we can set it to null
+        if ($result === null) {
+            $this->result = null;
+            return $this;
+        }
+
+        // Otherwise, we set the result
         $this->result = $result;
 
         return $this;
@@ -242,7 +266,7 @@ class TaskExecution implements TaskExecutionInterface
     /**
      * {@inheritdoc}
      */
-    public function setException($exception)
+    public function setException(string $exception) : self
     {
         $this->exception = $exception;
 
@@ -252,7 +276,7 @@ class TaskExecution implements TaskExecutionInterface
     /**
      * {@inheritdoc}
      */
-    public function getAttempts()
+    public function getAttempts() : int
     {
         return $this->attempts;
     }
@@ -260,7 +284,7 @@ class TaskExecution implements TaskExecutionInterface
     /**
      * {@inheritdoc}
      */
-    public function reset()
+    public function reset() : self
     {
         $this->startTime = null;
         $this->endTime = null;
@@ -274,7 +298,7 @@ class TaskExecution implements TaskExecutionInterface
     /**
      * {@inheritdoc}
      */
-    public function incrementAttempts()
+    public function incrementAttempts() : self
     {
         ++$this->attempts;
 

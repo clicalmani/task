@@ -1,19 +1,16 @@
 <?php
 
-/*
- * This file is part of php-task library.
- *
- * (c) php-task
- *
- * This source file is subject to the MIT license that is bundled
- * with this source code in the file LICENSE.
- */
-
-namespace Clicalmani\Task\Handler;
-
 /**
  * Thrown when the requested handler not exists.
+ *
+ * This exception is thrown when a task handler cannot be found for the specified class name.
+ * It provides information about the class name that was attempted to be instantiated.
+ *
+ * @package Clicalmani\Task\Handler
+ * @since 1.0.0
  */
+namespace Clicalmani\Task\Handler;
+
 class TaskHandlerNotExistsException extends \Exception
 {
     /**
@@ -24,7 +21,7 @@ class TaskHandlerNotExistsException extends \Exception
     /**
      * @param string $className
      */
-    public function __construct($className)
+    public function __construct(string $className)
     {
         parent::__construct(sprintf('Handler with name "%s" not exists.', $className));
 
@@ -36,7 +33,7 @@ class TaskHandlerNotExistsException extends \Exception
      *
      * @return string
      */
-    public function getClassName()
+    public function getClassName() : string
     {
         return $this->className;
     }
