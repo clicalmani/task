@@ -15,11 +15,11 @@ class RecurringMessage implements RecurringMessageInterface
     public function __construct(
         private string $cronExpression = '',
         private ?object $message = null,
-        private \DateTime|null $startDate = null
+        private ?\DateTime $startDate = null
     )
     {}
 
-    public static function cron(string $cronExpression, object $message, \DateTime $startDate) : self
+    public static function cron(string $cronExpression, object $message, ?\DateTime $startDate = null) : self
     {
         return new self(
             $cronExpression,
@@ -28,7 +28,7 @@ class RecurringMessage implements RecurringMessageInterface
         );
     }
 
-    public function hourly(object $message, \DateTime $startDate) : self
+    public static function hourly(object $message, ?\DateTime $startDate = null) : self
     {
         return new self(
             '@hourly',
@@ -37,7 +37,7 @@ class RecurringMessage implements RecurringMessageInterface
         );
     }
 
-    public function daily(object $message, \DateTime $startDate) : self
+    public static function daily(object $message, ?\DateTime $startDate = null) : self
     {
         return new self(
             '@daily',
@@ -46,7 +46,7 @@ class RecurringMessage implements RecurringMessageInterface
         );
     }
 
-    public function weekly(object $message, \DateTime $startDate) : self
+    public static function weekly(object $message, ?\DateTime $startDate = null) : self
     {
         return new self(
             '@weekly',
@@ -55,7 +55,7 @@ class RecurringMessage implements RecurringMessageInterface
         );
     }
 
-    public function monthly(object $message, \DateTime $startDate) : self
+    public static function monthly(object $message, ?\DateTime $startDate = null) : self
     {
         return new self(
             '@monthly',
@@ -64,7 +64,7 @@ class RecurringMessage implements RecurringMessageInterface
         );
     }
 
-    public function yearly(object $message, \DateTime $startDate) : self
+    public static function yearly(object $message, ?\DateTime $startDate = null) : self
     {
         return new self(
             '@yearly',
@@ -88,7 +88,7 @@ class RecurringMessage implements RecurringMessageInterface
         return $this->cronExpression;
     }
 
-    public function getStartDate() : \DateTime
+    public function getStartDate() : ?\DateTime
     {
         return $this->startDate;
     }

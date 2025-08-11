@@ -18,55 +18,55 @@ interface RecurringMessageInterface
      *
      * @param string $cronExpression
      * @param object $message
-     * @param \DateTime $startDate
+     * @param ?\DateTime $startDate
      * @return self
      */
-    public static function cron(string $cronExpression, object $message, \DateTime $startDate) : self;
+    public static function cron(string $cronExpression, object $message, ?\DateTime $startDate = null) : self;
     
     /**
      * Creates an hourly recurring message.
      *
      * @param object $message
-     * @param \DateTime $startDate
+     * @param ?\DateTime $startDate
      * @return self
      */
-    public function hourly(object $message, \DateTime $startDate) : self;
+    public static function hourly(object $message, ?\DateTime $startDate = null) : self;
 
     /**
      * Creates a daily recurring message.
      *
      * @param object $message
-     * @param \DateTime $startDate
+     * @param ?\DateTime $startDate
      * @return self
      */
-    public function daily(object $message, \DateTime $startDate) : self;
+    public static function daily(object $message, ?\DateTime $startDate = null) : self;
 
     /**
      * Creates a weekly recurring message.
      *
      * @param object $message
-     * @param \DateTime $startDate
+     * @param ?\DateTime $startDate
      * @return self
      */
-    public function weekly(object $message, \DateTime $startDate) : self;
+    public static function weekly(object $message, ?\DateTime $startDate = null) : self;
 
     /**
      * Creates a monthly recurring message.
      *
      * @param object $message
-     * @param \DateTime $startDate
+     * @param ?\DateTime $startDate
      * @return self
      */
-    public function monthly(object $message, \DateTime $startDate) : self;
+    public static function monthly(object $message, ?\DateTime $startDate = null) : self;
 
     /**
      * Creates a yearly recurring message.
      *
      * @param object $message
-     * @param \DateTime $startDate
+     * @param ?\DateTime $startDate
      * @return self
      */
-    public function yearly(object $message, \DateTime $startDate) : self;
+    public static function yearly(object $message, ?\DateTime $startDate = null) : self;
 
     /**
      * Returns the cron expression for the recurring message.
@@ -85,7 +85,7 @@ interface RecurringMessageInterface
     /**
      * Returns the start date for the recurring message.
      *
-     * @return \DateTime
+     * @return ?\DateTime
      */
-    public function getStartDate() : \DateTime;
+    public function getStartDate() : ?\DateTime;
 }
